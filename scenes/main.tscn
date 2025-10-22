@@ -1,8 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://jeodv0dfs1vu"]
+[gd_scene load_steps=9 format=3 uid="uid://jeodv0dfs1vu"]
 
 [ext_resource type="PackedScene" uid="uid://cxmf64sw6l3p5" path="res://scenes/chocobo.tscn" id="1_o5qli"]
+[ext_resource type="Shader" path="res://shaders/monochrome.gdshader" id="2_abcde"]
+[ext_resource type="Shader" path="res://shaders/silhouette.gdshader" id="3_silho"]
+[ext_resource type="Shader" path="res://shaders/pixelate.gdshader" id="4_pixel"]
+[ext_resource type="Script" path="res://scripts/ShaderManager.gd" id="5_shader_mgr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mono"]
+shader = ExtResource("2_abcde")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_silhouette"]
+shader = ExtResource("3_silho")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pixelate"]
+shader = ExtResource("4_pixel")
+shader_parameter/pixelation = 0.5
 
 [node name="Main" type="Node2D"]
+script = ExtResource("5_shader_mgr")
 
 [node name="Sprites" type="Node" parent="."]
 
@@ -10,12 +25,15 @@
 position = Vector2(16, 16)
 
 [node name="Chocobo2" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_mono")
 position = Vector2(48, 16)
 
 [node name="Chocobo3" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_silhouette")
 position = Vector2(80, 16)
 
 [node name="Chocobo4" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_pixelate")
 position = Vector2(112, 16)
 
 [node name="Chocobo5" parent="Sprites" instance=ExtResource("1_o5qli")]

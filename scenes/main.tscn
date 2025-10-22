@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://jeodv0dfs1vu"]
+[gd_scene load_steps=16 format=3 uid="uid://jeodv0dfs1vu"]
 
 [ext_resource type="PackedScene" uid="uid://cxmf64sw6l3p5" path="res://scenes/chocobo.tscn" id="1_o5qli"]
 [ext_resource type="Shader" path="res://shaders/monochrome.gdshader" id="2_abcde"]
 [ext_resource type="Shader" path="res://shaders/silhouette.gdshader" id="3_silho"]
 [ext_resource type="Shader" path="res://shaders/pixelate.gdshader" id="4_pixel"]
 [ext_resource type="Script" path="res://scripts/ShaderManager.gd" id="5_shader_mgr"]
+[ext_resource type="Shader" path="res://shaders/paletteSwap.gdshader" id="6_palette"]
+[ext_resource type="Shader" path="res://shaders/colorCycle.gdshader" id="7_colorcycle"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mono"]
 shader = ExtResource("2_abcde")
@@ -15,6 +17,57 @@ shader = ExtResource("3_silho")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pixelate"]
 shader = ExtResource("4_pixel")
 shader_parameter/pixelation = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_paletteRed"]
+shader = ExtResource("6_palette")
+shader_parameter/color1 = Vector4(0.972549, 0.972549, 0.25098, 1)
+shader_parameter/color2 = Vector4(0.941176, 0.721569, 0, 1)
+shader_parameter/color3 = Vector4(0.847059, 0.533333, 0.0313726, 1)
+shader_parameter/color4 = Vector4(0.658824, 0.376471, 0.0627451, 1)
+shader_parameter/color5 = Vector4(0.470588, 0.219608, 0, 1)
+shader_parameter/newColor1 = Vector4(0.941176, 0.501961, 0.345098, 1)
+shader_parameter/newColor2 = Vector4(0.909804, 0.407843, 0.313726, 1)
+shader_parameter/newColor3 = Vector4(0.847059, 0.313726, 0.219608, 1)
+shader_parameter/newColor4 = Vector4(0.690196, 0.219608, 0.156863, 1)
+shader_parameter/newColor5 = Vector4(0.501961, 0.156863, 0.12549, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_paletteBlack"]
+shader = ExtResource("6_palette")
+shader_parameter/color1 = Vector4(0.972549, 0.972549, 0.25098, 1)
+shader_parameter/color2 = Vector4(0.941176, 0.721569, 0, 1)
+shader_parameter/color3 = Vector4(0.847059, 0.533333, 0.0313726, 1)
+shader_parameter/color4 = Vector4(0.658824, 0.376471, 0.0627451, 1)
+shader_parameter/color5 = Vector4(0.470588, 0.219608, 0, 1)
+shader_parameter/newColor1 = Vector4(0.533333, 0.439216, 0.564706, 1)
+shader_parameter/newColor2 = Vector4(0.470588, 0.376471, 0.533333, 1)
+shader_parameter/newColor3 = Vector4(0.407843, 0.313726, 0.470588, 1)
+shader_parameter/newColor4 = Vector4(0.313726, 0.25098, 0.407843, 1)
+shader_parameter/newColor5 = Vector4(0.25098, 0.219608, 0.282353, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_paletteGreen"]
+shader = ExtResource("6_palette")
+shader_parameter/color1 = Vector4(0.972549, 0.972549, 0.25098, 1)
+shader_parameter/color2 = Vector4(0.941176, 0.721569, 0, 1)
+shader_parameter/color3 = Vector4(0.847059, 0.533333, 0.0313726, 1)
+shader_parameter/color4 = Vector4(0.658824, 0.376471, 0.0627451, 1)
+shader_parameter/color5 = Vector4(0.470588, 0.219608, 0, 1)
+shader_parameter/newColor1 = Vector4(0.619608, 0.85098, 0.333333, 1)
+shader_parameter/newColor2 = Vector4(0.4, 0.631373, 0.329412, 1)
+shader_parameter/newColor3 = Vector4(0.290196, 0.521569, 0.219608, 1)
+shader_parameter/newColor4 = Vector4(0.180392, 0.411765, 0.109804, 1)
+shader_parameter/newColor5 = Vector4(0.0705882, 0.301961, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_heal"]
+shader = ExtResource("7_colorcycle")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fire"]
+shader = ExtResource("7_colorcycle")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_altHeal"]
+shader = ExtResource("7_colorcycle")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_shadow"]
+shader = ExtResource("7_colorcycle")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("5_shader_mgr")
@@ -37,12 +90,15 @@ material = SubResource("ShaderMaterial_pixelate")
 position = Vector2(112, 16)
 
 [node name="Chocobo5" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_paletteRed")
 position = Vector2(144, 16)
 
 [node name="Chocobo6" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_heal")
 position = Vector2(16, 48)
 
 [node name="Chocobo7" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_fire")
 position = Vector2(48, 48)
 
 [node name="Chocobo8" parent="Sprites" instance=ExtResource("1_o5qli")]
@@ -52,12 +108,15 @@ position = Vector2(80, 48)
 position = Vector2(112, 48)
 
 [node name="Chocobo10" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_paletteBlack")
 position = Vector2(144, 48)
 
 [node name="Chocobo11" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_altHeal")
 position = Vector2(16, 80)
 
 [node name="Chocobo12" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_shadow")
 position = Vector2(48, 80)
 
 [node name="Chocobo13" parent="Sprites" instance=ExtResource("1_o5qli")]
@@ -67,4 +126,5 @@ position = Vector2(80, 80)
 position = Vector2(112, 80)
 
 [node name="Chocobo15" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_paletteGreen")
 position = Vector2(144, 80)

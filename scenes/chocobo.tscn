@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxmf64sw6l3p5"]
+
+[ext_resource type="Texture2D" uid="uid://b5cc6l7sxdour" path="res://assets/chocobo-test.png" id="1_q0mku"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4vn4"]
+atlas = ExtResource("1_q0mku")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qd2x7"]
+atlas = ExtResource("1_q0mku")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_neuxc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4vn4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qd2x7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.7
+}]
+
+[node name="Chocobo" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_neuxc")
+autoplay = "default"
+frame_progress = 0.12791218

@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://jeodv0dfs1vu"]
+
+[ext_resource type="PackedScene" uid="uid://cxmf64sw6l3p5" path="res://scenes/chocobo.tscn" id="1_o5qli"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Sprites" type="Node" parent="."]
+
+[node name="Chocobo" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(16, 16)
+
+[node name="Chocobo2" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(48, 16)
+
+[node name="Chocobo3" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(80, 16)
+
+[node name="Chocobo4" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(112, 16)
+
+[node name="Chocobo5" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(144, 16)
+
+[node name="Chocobo6" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(16, 48)
+
+[node name="Chocobo7" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(48, 48)
+
+[node name="Chocobo8" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(80, 48)
+
+[node name="Chocobo9" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(112, 48)
+
+[node name="Chocobo10" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(144, 48)
+
+[node name="Chocobo11" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(16, 80)
+
+[node name="Chocobo12" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(48, 80)
+
+[node name="Chocobo13" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(80, 80)
+
+[node name="Chocobo14" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(112, 80)
+
+[node name="Chocobo15" parent="Sprites" instance=ExtResource("1_o5qli")]
+position = Vector2(144, 80)

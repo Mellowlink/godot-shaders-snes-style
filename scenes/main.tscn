@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://jeodv0dfs1vu"]
+[gd_scene load_steps=20 format=3 uid="uid://jeodv0dfs1vu"]
 
 [ext_resource type="PackedScene" uid="uid://cxmf64sw6l3p5" path="res://scenes/chocobo.tscn" id="1_o5qli"]
 [ext_resource type="Shader" path="res://shaders/monochrome.gdshader" id="2_abcde"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://scripts/ShaderManager.gd" id="5_shader_mgr"]
 [ext_resource type="Shader" path="res://shaders/paletteSwap.gdshader" id="6_palette"]
 [ext_resource type="Shader" path="res://shaders/colorCycle.gdshader" id="7_colorcycle"]
+[ext_resource type="Shader" path="res://shaders/outlineFlash.gdshader" id="8_outline"]
+[ext_resource type="Shader" path="res://shaders/poison.gdshader" id="9_poison"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mono"]
 shader = ExtResource("2_abcde")
@@ -69,6 +71,18 @@ shader = ExtResource("7_colorcycle")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_shadow"]
 shader = ExtResource("7_colorcycle")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_barrier"]
+shader = ExtResource("8_outline")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_shield"]
+shader = ExtResource("8_outline")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_poison"]
+shader = ExtResource("9_poison")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_altPoison"]
+shader = ExtResource("9_poison")
+
 [node name="Main" type="Node2D"]
 script = ExtResource("5_shader_mgr")
 
@@ -102,9 +116,11 @@ material = SubResource("ShaderMaterial_fire")
 position = Vector2(48, 48)
 
 [node name="Chocobo8" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_poison")
 position = Vector2(80, 48)
 
 [node name="Chocobo9" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_barrier")
 position = Vector2(112, 48)
 
 [node name="Chocobo10" parent="Sprites" instance=ExtResource("1_o5qli")]
@@ -120,9 +136,11 @@ material = SubResource("ShaderMaterial_shadow")
 position = Vector2(48, 80)
 
 [node name="Chocobo13" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_altPoison")
 position = Vector2(80, 80)
 
 [node name="Chocobo14" parent="Sprites" instance=ExtResource("1_o5qli")]
+material = SubResource("ShaderMaterial_shield")
 position = Vector2(112, 80)
 
 [node name="Chocobo15" parent="Sprites" instance=ExtResource("1_o5qli")]

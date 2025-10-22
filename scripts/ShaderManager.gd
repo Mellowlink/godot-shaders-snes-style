@@ -55,20 +55,72 @@ var shadow_colors = [
 	Vector4(0.0, 0.0, 0.0, 1.0)
 ]
 
+var white_outline_colors = [
+	Vector4(0.0, 0.0, 0.0, 1.0),
+	Vector4(0.25, 0.25, 0.25, 1.0),
+	Vector4(0.5, 0.5, 0.5, 1.0),
+	Vector4(0.75, 0.75, 0.75, 1.0),
+	Vector4(1.0, 1.0, 1.0, 1.0)
+]
+
+var blue_outline_colors = [
+	Vector4(0.0, 0.0, 0.0, 1.0),
+	Vector4(0.0, 0.155, 0.91, 1.0),
+	Vector4(0.0, 0.44, 0.91, 1.0),
+	Vector4(0.0, 0.75, 0.97, 1.0),
+	Vector4(0.25, 0.97, 0.97, 1.0)
+]
+
+var poison_colors = [
+	Vector4(0.64, 0.44, 0.854, 1.0),
+	Vector4(0.64, 0.44, 0.854, 1.0),
+	Vector4(0.64, 0.44, 0.854, 1.0),
+	Vector4(0.64, 0.44, 0.854, 1.0),
+	Vector4(0.4, 0.0, 0.0, 1.0)
+]
+
+var alt_poison_colors = [
+	Vector4(0.0, 0.75, 0.0, 1.0),
+	Vector4(0.0, 0.75, 0.0, 1.0),
+	Vector4(0.0, 0.75, 0.0, 1.0),
+	Vector4(0.0, 0.75, 0.0, 1.0),
+	Vector4(0.4, 0.0, 0.0, 1.0)
+]
+
+# Outline flash settings
+var outline_anim_time = 0.0
+var outline_anim_speed = 0.08
+var outline_cycle_num = 1
+var outline_cycle_dir = -1
+
+# Poison settings
+var poison_anim_time = 0.0
+var poison_anim_speed = 0.15
+var poison_cycle_num = 1
+var poison_cycle_dir = -1
+
 # References to sprites
 @onready var pixelate_sprite = $Sprites/Chocobo4
 @onready var heal_sprite = $Sprites/Chocobo6
 @onready var fire_sprite = $Sprites/Chocobo7
+@onready var poison_sprite = $Sprites/Chocobo8
 @onready var alt_heal_sprite = $Sprites/Chocobo11
 @onready var shadow_sprite = $Sprites/Chocobo12
+@onready var alt_poison_sprite = $Sprites/Chocobo13
+@onready var barrier_sprite = $Sprites/Chocobo9
+@onready var shield_sprite = $Sprites/Chocobo14
 
 func _ready():
 	pixelate_anim_time = pixelate_anim_speed
 	cycle_anim_time = cycle_anim_speed
+	outline_anim_time = outline_anim_speed
+	poison_anim_time = poison_anim_speed
 
 func _process(delta):
 	process_pixelate_effect(delta)
 	process_color_cycle_effects(delta)
+	process_outline_flash_effects(delta)
+	process_poison_effects(delta)
 
 func process_pixelate_effect(delta):
 	pixelate_anim_time -= delta
@@ -145,3 +197,41 @@ func process_color_cycle_effects(delta):
 		shadow_sprite.material.set_shader_parameter("color3", shadow_colors[cycle3_num - 1])
 		shadow_sprite.material.set_shader_parameter("color4", shadow_colors[cycle4_num - 1])
 		shadow_sprite.material.set_shader_parameter("color5", shadow_colors[cycle5_num - 1])
+
+func process_outline_flash_effects(delta):
+	outline_anim_time -= delta
+	
+	if outline_anim_time <= 0.0:
+		outline_anim_time = outline_anim_speed
+		
+		# Update outline cycle (separate from color cycle)
+		if outline_cycle_num == 1 or outline_cycle_num == 5:
+			outline_cycle_dir *= -1
+		outline_cycle_num += outline_cycle_dir
+	
+	# Update barrier effect (white outline)
+	if barrier_sprite and barrier_sprite.material:
+		barrier_sprite.material.set_shader_parameter("color", white_outline_colors[outline_cycle_num - 1])
+	
+	# Update shield effect (blue outline)
+	if shield_sprite and shield_sprite.material:
+		shield_sprite.material.set_shader_parameter("color", blue_outline_colors[outline_cycle_num - 1])
+
+func process_poison_effects(delta):
+	poison_anim_time -= delta
+	
+	if poison_anim_time <= 0.0:
+		poison_anim_time = poison_anim_speed
+		
+		# Update poison cycle
+		if poison_cycle_num == 1 or poison_cycle_num == 5:
+			poison_cycle_dir *= -1
+		poison_cycle_num += poison_cycle_dir
+	
+	# Update poison effect
+	if poison_sprite and poison_sprite.material:
+		poison_sprite.material.set_shader_parameter("color", poison_colors[poison_cycle_num - 1])
+	
+	# Update alt poison effect
+	if alt_poison_sprite and alt_poison_sprite.material:
+		alt_poison_sprite.material.set_shader_parameter("color", alt_poison_colors[poison_cycle_num - 1])
